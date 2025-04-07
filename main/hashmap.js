@@ -1,14 +1,15 @@
+export { HashMap };
 import { LinkedList } from "./linked-list.js";
 
 class HashMap {
-	constructor(capacity) {
+	constructor(capacity = 16) {
 		this.buckets = new Array(capacity);
 		for (let i = 0; i < capacity; i++) {
 			this.buckets[i] = new LinkedList();
 		}
 	}
 
-	loadFactor = 0.8;
+	loadFactor = 0.75;
 
 	hash(key) {
 		let hashCode = 0;
@@ -35,6 +36,10 @@ class HashMap {
 				bucket.prepend(key, value);
 				console.log("ADDED NODE");
 			}
+		}
+
+		if (this.length() > this.buckets.length * this.loadFactor) {
+			this.growMap();
 		}
 	}
 	get(key) {
@@ -87,15 +92,48 @@ class HashMap {
 			bucket.removeAll();
 		});
 	}
+	keys() {
+		const keyArray = [];
+		this.buckets.forEach((bucket) => {
+			if (bucket.length > 0) {
+				bucket.getAll().forEach((node) => {
+					keyArray.push(node.key);
+				});
+			}
+		});
+		return keyArray;
+	}
+	values() {
+		const valueArray = [];
+		this.buckets.forEach((bucket) => {
+			if (bucket.length > 0) {
+				bucket.getAll().forEach((node) => {
+					valueArray.push(node.value);
+				});
+			}
+		});
+		return valueArray;
+	}
+	entries() {
+		const entryArray = [];
+		this.buckets.forEach((bucket) => {
+			if (bucket.length > 0) {
+				bucket.getAll().forEach((node) => {
+					entryArray.push([node.key, node.value]);
+				});
+			}
+		});
+		return entryArray;
+	}
+	growMap() {
+		const newBuckets = new Array(this.buckets.length * 2);
+		for (let i = 0; i < newBuckets.length; i++) {
+			newBuckets[i] = new LinkedList();
+		}
+		const entries = this.entries();
+		this.buckets = newBuckets;
+		entries.forEach((entry) => {
+			this.set(entry[0], entry[1]);
+		});
+	}
 }
-
-const hashmap = new HashMap(16);
-
-hashmap.set("Jessica", "USA");
-hashmap.set("Jessixa", "USA");
-//hashmap.set("Jessica", "USA");
-hashmap.set("Michael", "Argentina");
-hashmap.set("Erik", "France");
-
-hashmap.clear();
-console.log(hashmap);

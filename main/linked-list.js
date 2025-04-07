@@ -155,6 +155,15 @@ class LinkedList {
 		this.tailNode = null;
 		this.length = 0;
 	}
+	getAll() {
+		const nodeArray = [];
+		let currentNode = this.headNode;
+		for (let i = 0; i < this.length; i++) {
+			nodeArray.push(currentNode);
+			currentNode = currentNode.nextNode;
+		}
+		return nodeArray;
+	}
 }
 
 class Node {
