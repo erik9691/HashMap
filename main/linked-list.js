@@ -124,14 +124,20 @@ class LinkedList {
 			this.length += 1;
 		}
 	}
+		*/
 	removeAt(index) {
 		if (index < 0) {
 			throw new Error("ERROR index must be 0 or higher");
 		} else if (index + 1 > this.length) {
 			throw new Error("ERROR index can't be larger than list");
 		} else if (index === 0) {
-			const nextNode = this.at(index + 1);
-			this.headNode = nextNode;
+			if (this.length === 1) {
+				this.headNode = null;
+				this.tailNode = null;
+			} else {
+				const nextNode = this.at(index + 1);
+				this.headNode = nextNode;
+			}
 			this.length -= 1;
 		} else if (index + 1 === this.length) {
 			this.pop();
@@ -142,9 +148,8 @@ class LinkedList {
 			previousNode.nextNode = nextNode;
 
 			this.length -= 1;
-		}	
+		}
 	}
-	*/
 }
 
 class Node {

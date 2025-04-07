@@ -60,12 +60,25 @@ class HashMap {
 			return bucket.contains(key);
 		}
 	}
+	remove(key) {
+		const index = this.hash(key);
+		if (index < 0 || index >= this.buckets.length) {
+			throw new Error("Trying to access index out of bounds");
+		} else {
+			const bucket = this.buckets[index];
+			const nodeIndex = bucket.find(key);
+			if (nodeIndex !== null) {
+				bucket.removeAt(nodeIndex);
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 }
 
 const hashmap = new HashMap(16);
 
-//console.log(hashmap.hash("jessica"));
-hashmap.set("jessica", "USA");
-hashmap.set("jessica", "Canada");
-console.log(hashmap.get("jessica"));
-console.log(hashmap.has("jessica"));
+hashmap.set("Jessica", "USA");
+hashmap.set("Michael", "Argentina");
+hashmap.set("Erik", "France");
