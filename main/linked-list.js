@@ -150,6 +150,11 @@ class LinkedList {
 			this.length -= 1;
 		}
 	}
+	removeAll() {
+		this.headNode = null;
+		this.tailNode = null;
+		this.length = 0;
+	}
 }
 
 class Node {

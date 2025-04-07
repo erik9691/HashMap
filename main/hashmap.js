@@ -75,10 +75,27 @@ class HashMap {
 			}
 		}
 	}
+	length() {
+		let amount = 0;
+		this.buckets.forEach((bucket) => {
+			amount += bucket.length;
+		});
+		return amount;
+	}
+	clear() {
+		this.buckets.forEach((bucket) => {
+			bucket.removeAll();
+		});
+	}
 }
 
 const hashmap = new HashMap(16);
 
 hashmap.set("Jessica", "USA");
+hashmap.set("Jessixa", "USA");
+//hashmap.set("Jessica", "USA");
 hashmap.set("Michael", "Argentina");
 hashmap.set("Erik", "France");
+
+hashmap.clear();
+console.log(hashmap);
