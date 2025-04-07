@@ -37,12 +37,35 @@ class HashMap {
 			}
 		}
 	}
+	get(key) {
+		const index = this.hash(key);
+		if (index < 0 || index >= this.buckets.length) {
+			throw new Error("Trying to access index out of bounds");
+		} else {
+			const bucket = this.buckets[index];
+			const nodeIndex = bucket.find(key);
+			if (nodeIndex !== null) {
+				return bucket.at(nodeIndex).value;
+			} else {
+				return null;
+			}
+		}
+	}
+	has(key) {
+		const index = this.hash(key);
+		if (index < 0 || index >= this.buckets.length) {
+			throw new Error("Trying to access index out of bounds");
+		} else {
+			const bucket = this.buckets[index];
+			return bucket.contains(key);
+		}
+	}
 }
 
 const hashmap = new HashMap(16);
 
 //console.log(hashmap.hash("jessica"));
 hashmap.set("jessica", "USA");
-console.log(hashmap.buckets[12]);
 hashmap.set("jessica", "Canada");
-console.log(hashmap.buckets[12]);
+console.log(hashmap.get("jessica"));
+console.log(hashmap.has("jessica"));
