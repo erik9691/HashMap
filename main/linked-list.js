@@ -7,8 +7,8 @@ class LinkedList {
 	tailNode = null;
 	length = 0;
 
-	append(value) {
-		const newNode = new Node(value);
+	append(key, value) {
+		const newNode = new Node(key, value);
 
 		if (this.headNode === null) {
 			this.headNode = newNode;
@@ -20,8 +20,8 @@ class LinkedList {
 
 		this.length += 1;
 	}
-	prepend(value) {
-		const newNode = new Node(value);
+	prepend(key, value) {
+		const newNode = new Node(key, value);
 
 		if (this.headNode === null) {
 			this.headNode = newNode;
@@ -73,20 +73,20 @@ class LinkedList {
 			this.length -= 1;
 		}
 	}
-	contains(value) {
+	contains(key) {
 		let currentNode = this.headNode;
 		for (let i = 0; i < this.length; i++) {
-			if (currentNode.value === value) {
+			if (currentNode.key === key) {
 				return true;
 			}
 			currentNode = currentNode.nextNode;
 		}
 		return false;
 	}
-	find(value) {
+	find(key) {
 		let currentNode = this.headNode;
 		for (let i = 0; i < this.length; i++) {
-			if (currentNode.value === value) {
+			if (currentNode.key === key) {
 				return i;
 			}
 			currentNode = currentNode.nextNode;
@@ -97,12 +97,13 @@ class LinkedList {
 		let outputString = "";
 		let currentNode = this.headNode;
 		for (let i = 0; i < this.length; i++) {
-			outputString += `( ${currentNode.value} ) -> `;
+			outputString += `( ${currentNode.key} ) -> `;
 			currentNode = currentNode.nextNode;
 		}
 		outputString += "null";
 		return outputString;
 	}
+	/*
 	insertAt(value, index) {
 		if (index < 0) {
 			throw new Error("ERROR index must be 0 or higher");
@@ -141,15 +142,18 @@ class LinkedList {
 			previousNode.nextNode = nextNode;
 
 			this.length -= 1;
-		}
+		}	
 	}
+	*/
 }
 
 class Node {
+	key = null;
 	value = null;
 	nextNode = null;
 
-	constructor(value) {
+	constructor(key, value) {
+		this.key = key;
 		this.value = value;
 	}
 }

@@ -26,13 +26,23 @@ class HashMap {
 		if (index < 0 || index >= this.buckets.length) {
 			throw new Error("Trying to access index out of bounds");
 		} else {
-			this.buckets[index].prepend(value);
+			const bucket = this.buckets[index];
+			const nodeIndex = bucket.find(key);
+			if (nodeIndex !== null) {
+				bucket.at(nodeIndex).value = value;
+				console.log("UPDATED NODE");
+			} else {
+				bucket.prepend(key, value);
+				console.log("ADDED NODE");
+			}
 		}
 	}
 }
 
 const hashmap = new HashMap(16);
 
-console.log(hashmap.hash("jessica"));
+//console.log(hashmap.hash("jessica"));
 hashmap.set("jessica", "USA");
-console.log(hashmap);
+console.log(hashmap.buckets[12]);
+hashmap.set("jessica", "Canada");
+console.log(hashmap.buckets[12]);
